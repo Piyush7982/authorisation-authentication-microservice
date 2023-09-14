@@ -1,4 +1,5 @@
 const {PORT}=require("./server-config")
 module.exports={
-    ServerPort:PORT
+    ServerPort:PORT,
+    passAuth:require("./hash-config")
 }
