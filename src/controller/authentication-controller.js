@@ -22,7 +22,9 @@ async function signup(req,res){
 async function login(req,res){
     try {
         const response= await AuthenticationService.loginAuthenticate({emailId:req.body.emailId, password:req.body.password})
-        SuccessResponse.Data=response
+        // res.header("x-access-token", response.token);
+        res.cookie("access_token", response.token)
+        SuccessResponse.Data=response.message
         SuccessResponse.Message="succesfully found"
         return res.json(SuccessResponse)
         

@@ -2,15 +2,20 @@ const { StatusCodes } = require("http-status-codes")
 const{ AuthenticationRepository}= require("../repositoties")
 const CustomError = require("../util/errors")
 const {passAuth}= require("../config")
-
+const {Token}= require("../util/common")
 
 
 
 
 const authenticate= new AuthenticationRepository()
 async  function signupAuthenticate(data){
-    const signup= authenticate.signupAuthenticate(data)
-    return signup
+    try {
+        const signup= authenticate.signupAuthenticate(data)
+        return signup
+    } catch (error) {
+        throw error
+    }
+    
 }
 async function loginAuthenticate(data){
     try {
@@ -25,13 +30,16 @@ async function loginAuthenticate(data){
         if(isValidPassword==false){
             throw new CustomError("Wrong Password entered",StatusCodes.BAD_REQUEST)
         }
-        return "Login Successful, User Loggedin"
+        //assign token
+        const token=Token.tokenGenerate(isValid.dataValues)
+        return {token:token,message: "Login Successful, User Loggedin"}
+        
     } catch (error) {
         throw error
     }
 
-
-
 }
+
+
 const authenticationService={signupAuthenticate,loginAuthenticate}
 module.exports=authenticationService
