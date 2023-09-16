@@ -4,7 +4,7 @@ const{MASTER_ADMIN,THEATRE_ADMIN,USER}= roles
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('roleData', {
+    await queryInterface.createTable('roles', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -27,6 +27,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('roleData');
+    await queryInterface.dropTable('roles');
   }
 };

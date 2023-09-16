@@ -1,15 +1,15 @@
 const crud= require("./crud-repository")
-const {userData}= require("../models");
+const {user}= require("../models")
 const CustomError = require("../util/errors");
 const { StatusCodes } = require("http-status-codes");
 class authenticationRepository extends crud{
     constructor(){
-        super(userData)
+        super(user)
         
     }
     async findOne(data){
         try {
-            const response= await this.model.findOne({ where: data })
+            const response= await user.findOne({ where: data })
             return response
         } catch (error) {
             throw new CustomError(error.message,StatusCodes.NOT_FOUND)
@@ -19,17 +19,20 @@ class authenticationRepository extends crud{
     async signupAuthenticate(data){
        try {
         const {emailId,name,password} = data
-        const [user, created] = await userData.findOrCreate({
+        const [users, created] = await user.findOrCreate({
             where: { emailId:emailId },
             defaults: {name:name, password:password },
           });
         if(!created){
             throw new CustomError(`User Already created for the following email: ${emailId}`,StatusCodes.BAD_REQUEST)
         }
-        return `User Created Succcesfully for the following email: ${emailId}`
+        
+        
+        return users
        } catch (error) {
             throw error
        }
     }
 }
+// `User Created Succcesfully for the following email: ${emailId}`
 module.exports=authenticationRepository

@@ -1,5 +1,4 @@
 const dotenv= require("dotenv")
-dotenv.config({ path: '../../.env' })
+dotenv.config()
 const PORT=process.env.PORT
-
-module.exports={PORT:PORT}
+module.exports={PORT}

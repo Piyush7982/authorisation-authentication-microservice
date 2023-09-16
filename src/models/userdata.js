@@ -4,27 +4,27 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class userData extends Model {
+  class user extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsToMany(models.role, {through: 'user_role'});
     }
   }
-  userData.init({
+  user.init({
     name: {allowNull: false,type:DataTypes.STRING},
     emailId:{allowNull: false,type:DataTypes.STRING,unique:true,validate:{isEmail:true}},
     password: {allowNull: false,type:DataTypes.STRING}
   }, {
     sequelize,
-    modelName: 'userData',
+    modelName: 'user',
   });
-  userData.beforeCreate(function hashPassword(userData) {
-    const encryptedPassword = bcrypt.hashSync(userData.password, 5);
-    userData.password = encryptedPassword;
+  user.beforeCreate(function hashPassword(user) {
+    const encryptedPassword = bcrypt.hashSync(user.password, 5);
+    user.password = encryptedPassword;
   });
-  return userData;
+  return user;
 };
