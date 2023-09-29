@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser')
 const {createProxyMiddleware} = require('http-proxy-middleware');
 const {router}= require("./routes")
 const {rateLimiter}= require("./config")
-const {user,role}= require("./models")
 const app= express()
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
