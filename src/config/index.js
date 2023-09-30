@@ -1,6 +1,6 @@
-const {PORT}=require("./server-config")
+
 module.exports={
-    ServerPort:PORT,
+    ServerPort:require("./server-config"),
     passAuth:require("./hash-config"),
     rateLimiter:require("./rate-limiter")
 }

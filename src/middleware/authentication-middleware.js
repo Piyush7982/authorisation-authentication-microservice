@@ -29,7 +29,7 @@ function tokenValidate(req,res,next){
 async function isAdmin(req,res,next){
     try {
         emailId=req.user.emailId
-        if(AuthenticationService.isAdmin(emailId)){
+        if(await AuthenticationService.isAdmin(emailId)){
             next()
         }else{
            throw CustomError("you are not authorised",StatusCodes.UNAUTHORIZED) 

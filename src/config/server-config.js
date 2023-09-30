@@ -1,4 +1,7 @@
-const dotenv= require("dotenv")
-dotenv.config()
-const PORT=process.env.PORT
-module.exports={PORT}
+require('dotenv').config()
+
+module.exports={
+    MAIN_PORT:process.env.PORT,
+    BOOKING_SERVICE_URL:process.env.BOOKING_SERVICE_URL,
+    DATA_SERVICE_URL:process.env.DATA_SERVICE_URL
+}
